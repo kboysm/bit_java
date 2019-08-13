@@ -1,0 +1,17 @@
+package day02;
+
+public class Sample01 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("hello JAVA day02");
+		System.out.print("java \n\n");
+		System.out.print("DB \n");
+		System.out.print("JDBC ");
+		System.out.print("html5 \t");
+		System.out.print("JSP \n");
+		
+	}
+
+}

@@ -1,0 +1,73 @@
+package day23_ex;
+//오토세이브 기존의 App과는 독립적으로 동작하면서 일정 시간마다 save()메서드를 호출해주면 그게 오토세이브 ->Thread
+//쓰레드를 만들고 런 메서드에서 세이브 메서드를 호출 헌 메서드에서 세이브 주기를 설정  후 스레드 스타트 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class MyFile {
+
+	public synchronized static void save(String fileName,Object obj) {
+		FileOutputStream fos  = null;
+		ObjectOutputStream oos = null;
+		
+		try {
+			fos = new FileOutputStream(fileName);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(obj);
+            oos.flush();
+            System.out.println(obj +"객체가 " +fileName +"file에  저장되었습니다. ");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+            e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) oos.close();
+				if(fos != null) fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public synchronized static Object load(String fileName){
+		FileInputStream fis  = null;
+		ObjectInputStream ois = null;
+		Object data = null;
+		try {
+			fis = new FileInputStream(fileName);
+			ois = new ObjectInputStream(fis);
+			data = ois.readObject();
+			System.out.println(fileName+" 파일로부터 "+ data+" Load 완료 " );
+		} catch (Exception e) {
+//			e.printStackTrace();
+		} finally {
+			try {
+				if(ois != null) ois.close();
+				if(fis != null) fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return data;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
